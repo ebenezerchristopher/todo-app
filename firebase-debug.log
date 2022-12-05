@@ -1,0 +1,27 @@
+[debug] [2022-12-03T20:11:17.133Z] ----------------------------------------------------------------------
+[debug] [2022-12-03T20:11:17.164Z] Command:       /data/data/com.termux/files/usr/bin/node /data/data/com.termux/files/home/.npm-global/bin/firebase init
+[debug] [2022-12-03T20:11:17.169Z] CLI Version:   11.16.1
+[debug] [2022-12-03T20:11:17.174Z] Platform:      android
+[debug] [2022-12-03T20:11:17.175Z] Node Version:  v18.12.1
+[debug] [2022-12-03T20:11:17.181Z] Time:          Sat Dec 03 2022 21:11:17 GMT+0100 (West Africa Standard Time)
+[debug] [2022-12-03T20:11:17.184Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-12-03T20:11:17.273Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-12-03T20:11:17.279Z] > authorizing via signed-in user (clergydrone@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /data/data/com.termux/files/home/repos/application
+
+[debug] [2022-12-03T20:12:16.135Z] Error: Timed out.
+    at Timeout._onTimeout (/data/data/com.termux/files/home/.npm-global/lib/node_modules/firebase-tools/lib/utils.js:253:49)
+    at listOnTimeout (node:internal/timers:564:17)
+    at process.processTimers (node:internal/timers:507:7)
+[error] 
+[error] Error: An unexpected error has occurred.

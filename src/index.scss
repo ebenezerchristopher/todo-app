@@ -1,0 +1,69 @@
+/*@tailwind base;
+@tailwind components;
+@tailwind utilities;
+*/
+@import "./normalize.scss";
+
+
+
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.getstartedpage {
+    position: relative;
+    img {
+  height: 80vh;
+  max-width: 100%;
+  object-fit: cover;
+    }
+}
+
+.signout {
+  position: absolute;
+  border: none;
+  border-radius: 10px;
+  background: blue;
+  padding: 10px;
+  top: 20px;
+  right: 20px;
+  color: white ;
+  font-weight: 800;
+  
+}
+
+.loginpage {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 150px;
+  
+  button {
+    background: green;
+    border: none;
+    border-radius: 15px;
+    width: 70vw;
+    height: 30px;
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: white;
+    font-weight: 500;
+  }
+  h1 {
+    font-size: 250%;
+    font-weight: 800;
+  }
+}
+
+
