@@ -1,5 +1,5 @@
-function createList(title) {
-  let todos = [];
+function createList(title,todos) {
+
   let completedTodos = [];
   function sort() {}
   function deleteCompleted() {

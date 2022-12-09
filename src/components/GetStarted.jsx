@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from "react";
 import getstarted from "../getstarted.jpg";
 import Signout from "./signout.jsx";
 import { UserContext } from "./usercontext.jsx";
-import { addUser } from "../firebase/database.js";
+import { addUser, addList } from "../firebase/database.js";
 
 let Getstarted = () => {
   let context = useContext(UserContext);
@@ -19,6 +19,7 @@ let Getstarted = () => {
   let loggedUser = context.user.currentUser;
   useEffect(() => {
     addUser(loggedUser);
+    addList(loggedUser,"general")
   }, []);
   return (
     <div className="getstartedpage">
