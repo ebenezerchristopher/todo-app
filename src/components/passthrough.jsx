@@ -8,7 +8,8 @@ export default function PassThrough() {
   let user = useContext(UserContext);
 
   if (!user.user.loggedin) {
-    return <Login />;
+     return <Login />;
+     // return <Main />;
   }
   if (user.user.loggedin && user.user.newuser) {
     return <Getstarted />;

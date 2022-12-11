@@ -80,14 +80,15 @@ async function userExists(user) {
   }
 }
 
-async function addList(user, name) {
+async function addList(user, id, name) {
   let db = getFirestore();
 
-  let docRef = doc(db, `users/${user.uid}/lists/${name}`);
+  let docRef = doc(db, `users/${user.uid}/lists/${id}`);
 
   try {
     await setDoc(docRef, {
       name,
+      id,
     });
   } catch (e) {
     console.log("something went wrong");
@@ -103,17 +104,7 @@ async function addToDo(user, list, todo) {
   ).withConverter(todoConverter);
 
   try {
-    await setDoc(
-      docRef,
-      createTodo(
-        todo.title,
-        todo.detail,
-        todo.date,
-        todo.starred,
-        todo.completed,
-        todo.id
-      )
-    );
+    await setDoc(docRef, todo);
   } catch (e) {
     console.log("todo couldnt be created");
   }
@@ -151,15 +142,17 @@ async function getLists(user) {
   const querySnapshot = await getDocs(
     collection(db, `users/${user.uid}/lists`)
   );
-  querySnapshot.forEach((doc) => {
+  
+
+  for (const doc of querySnapshot.docs) {
     // doc.data() is never undefined for query doc snapshots
     let data = doc.data();
-    let todos = getTodos(user, data.name);
-    let listObj = createList(data.name, todos);
+    let todos = await getTodos(user, data.id);
+    let listObj = createList(data.id, data.name, todos);
 
     lists.push(listObj);
-  });
-
+  };
+    
   return lists;
 }
 
@@ -179,4 +172,12 @@ async function deleteTodo(user, list, todo) {
   docRef.delete();
 }
 
-export { addUser, userExists, addList, addToDo, getLists, deleteList, deleteTodo};
+export {
+  addUser,
+  userExists,
+  addList,
+  addToDo,
+  getLists,
+  deleteList,
+  deleteTodo,
+};
