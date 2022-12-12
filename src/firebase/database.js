@@ -86,7 +86,7 @@ async function addList(user, id, name) {
   let docRef = doc(db, `users/${user.uid}/lists/${id}`);
 
   try {
-    await setDoc(docRef, {
+    return setDoc(docRef, {
       name,
       id,
     });
@@ -104,7 +104,7 @@ async function addToDo(user, list, todo) {
   ).withConverter(todoConverter);
 
   try {
-    await setDoc(docRef, todo);
+    return setDoc(docRef, todo);
   } catch (e) {
     console.log("todo couldnt be created");
   }
@@ -142,7 +142,6 @@ async function getLists(user) {
   const querySnapshot = await getDocs(
     collection(db, `users/${user.uid}/lists`)
   );
-  
 
   for (const doc of querySnapshot.docs) {
     // doc.data() is never undefined for query doc snapshots
@@ -151,8 +150,8 @@ async function getLists(user) {
     let listObj = createList(data.id, data.name, todos);
 
     lists.push(listObj);
-  };
-    
+  }
+
   return lists;
 }
 
@@ -161,7 +160,7 @@ async function deleteList(user, name) {
 
   let docRef = doc(db, `users/${user.uid}/lists/${name}`);
 
-  docRef.delete();
+ return docRef.delete();
 }
 
 async function deleteTodo(user, list, todo) {
@@ -169,7 +168,7 @@ async function deleteTodo(user, list, todo) {
 
   let docRef = doc(db, `users/${user.uid}/lists/${list}/todos/${todo.id}`);
 
-  docRef.delete();
+ return docRef.delete();
 }
 
 export {

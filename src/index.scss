@@ -24,7 +24,7 @@ body {
 }
 
 .signout {
-  position: absolute;
+  position: fixed;
   border: none;
   border-radius: 10px;
   background: blue;
@@ -169,4 +169,65 @@ body {
     grid-row: 1/4;
     max-height: 100%;
   }
+}
+
+.createlistmodal {
+  display: flex;
+  flex-direction: column;
+  background: lightgrey;
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+  z-index: 1000;
+  height: 100vh;
+  width: 100vw;
+  .heading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    height: 8vh;
+    [type="submit"] {
+      border: none;
+      background: transparent;
+      font-size: 100%;
+      color: blue;
+      &:disabled {
+        color: #6e6f70;
+      }
+    }
+    [type="button"] {
+      border: none;
+      background: transparent;
+      font-size: 180%;
+      color: grey;
+    }
+    .title {
+      margin-left: 10px;
+      margin-right: 80px;
+      font-size: 170%;
+    }
+  }
+  input {
+    background: white;
+    min-height: 3vh;
+    width: 100%;
+    border-color: #767d7f;
+    border-left: none;
+    border-right: none;
+    &:focus {
+border-color: #82c7ff;
+    border-left: none;
+    border-right: none;
+    }
+    &:valid {
+border-color: green;
+    }
+  }
+}
+
+#modal {
+  position: relative;
 }
