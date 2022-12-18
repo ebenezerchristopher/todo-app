@@ -26,40 +26,37 @@ let Getstarted = () => {
     });
   };
 
-  useEffect(() => {   
-    
-     function initialize () {
-    addUser(user);
+  useEffect(() => {
+    function initialize() {
+      addUser(user);
 
-    let listId = uuidv4();
-    let todoId = uuidv4();
-    let listName = "My Tasks";
-    let todoTitle = "Sample Todo";
-    let todoDetail = "Getting a coffee tomorrow afternoon";
-    let todoDate = "2022";
-    let starred = false;
-    let completed = false;
+      let listId = uuidv4();
+      let todoId = uuidv4();
+      let listName = "My Tasks";
+      let todoTitle = "Sample Todo";
+      let todoDetail = "Getting a coffee tomorrow afternoon";
+      let todoDate = "2022";
+      let starred = false;
+      let completed = false;
 
-     addList(user, listId, listName);
+      addList(user, listId, listName);
 
-    let todo = createTodo(
-      todoTitle,
-      todoDetail,
-      todoDate,
-      starred,
-      completed,
-      todoId
-    );
+      let todo = createTodo(
+        todoTitle,
+        todoDetail,
+        todoDate,
+        starred,
+        completed,
+        todoId,
+        listId
+      );
 
-    addToDo(user, listId, todo);
+      addToDo(user, todo);
+    }
 
-  }
-  
-  initialize();
-  
- }, []);
- 
- 
+    initialize();
+  }, []);
+
   return (
     <div className="getstartedpage">
       <Signout />

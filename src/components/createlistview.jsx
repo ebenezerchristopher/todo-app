@@ -42,7 +42,7 @@ export default function Createlist({ modalstate, onClick, user, setContext }) {
 
   return modalstate ? (
     <div className="createlistmodal">
-      <form onSubmit={submitHandler} novalidate>
+      <form onSubmit={submitHandler} noValidate>
         <div className="heading">
           <button onClick={modalToggler} type="button">
             x

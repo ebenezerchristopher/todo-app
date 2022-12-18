@@ -27,6 +27,7 @@ let todoConverter = {
       starred: todo.starred,
       completed: todo.completed,
       id: todo.id,
+      listid: todo.listid,
     };
   },
 
@@ -39,7 +40,8 @@ let todoConverter = {
       data.date,
       data.starred,
       data.completed,
-      data.id
+      data.id,
+      data.listid
     );
   },
 };
@@ -95,12 +97,12 @@ async function addList(user, id, name) {
   }
 }
 
-async function addToDo(user, list, todo) {
+async function addToDo(user, todo) {
   let db = getFirestore();
 
   let docRef = doc(
     db,
-    `users/${user.uid}/lists/${list}/todos/${todo.id}`
+    `users/${user.uid}/lists/${todo.listid}/todos/${todo.id}`
   ).withConverter(todoConverter);
 
   try {
@@ -113,6 +115,8 @@ async function addToDo(user, list, todo) {
 async function getTodos(user, list) {
   let db = getFirestore();
   let todos = [];
+  let completed = [];
+  let starred = [];
 
   const querySnapshot = await getDocs(
     collection(db, `users/${user.uid}/lists/${list}/todos`)
@@ -126,13 +130,23 @@ async function getTodos(user, list) {
       data.date,
       data.starred,
       data.completed,
-      data.id
+      data.id,
+      data.listid
     );
-
+    if (todo.starred) {
+      starred.push(todo);
+    }
+    if (todo.completed) {
+      completed.push(todo);
+    }
     todos.push(todo);
   });
 
-  return todos;
+  return {
+    todos,
+    completed,
+    starred,
+  };
 }
 
 async function getLists(user) {
@@ -146,8 +160,14 @@ async function getLists(user) {
   for (const doc of querySnapshot.docs) {
     // doc.data() is never undefined for query doc snapshots
     let data = doc.data();
-    let todos = await getTodos(user, data.id);
-    let listObj = createList(data.id, data.name, todos);
+    let todosObj = await getTodos(user, data.id);
+    let listObj = createList(
+      data.id,
+      data.name,
+      todosObj.todos,
+      todosObj.completed,
+      todosObj.starred
+    );
 
     lists.push(listObj);
   }
@@ -155,21 +175,36 @@ async function getLists(user) {
   return lists;
 }
 
-async function deleteList(user, name) {
+async function deleteList(user, id) {
   let db = getFirestore();
 
-  let docRef = doc(db, `users/${user.uid}/lists/${name}`);
+  let docRef = doc(db, `users/${user.uid}/lists/${id}`);
 
- return docRef.delete();
+  return docRef.delete();
 }
 
-async function deleteTodo(user, list, todo) {
+async function deleteTodo(user, todo) {
   let db = getFirestore();
 
-  let docRef = doc(db, `users/${user.uid}/lists/${list}/todos/${todo.id}`);
+  let docRef = doc(
+    db,
+    `users/${user.uid}/lists/${todo.listid}/todos/${todo.id}`
+  );
 
- return docRef.delete();
+  return docRef.delete();
 }
+
+async function updateTodos(user, todo, object) {
+  let db = getFirestore();
+  let docRef = doc(
+    db,
+    `users/${user.uid}/lists/${todo.listid}/todos/${todo.id}`
+  );
+
+  return await updateDoc(docRef, object);
+}
+
+
 
 export {
   addUser,
@@ -179,4 +214,5 @@ export {
   getLists,
   deleteList,
   deleteTodo,
+  updateTodos,
 };

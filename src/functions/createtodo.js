@@ -1,4 +1,4 @@
-function createTodo(title, detail, date, starred, completed, id) {
+function createTodo(title, detail, date, starred, completed, id, listid) {
   return {
     title,
     detail,
@@ -6,6 +6,7 @@ function createTodo(title, detail, date, starred, completed, id) {
     starred,
     completed,
     id,
+    listid
   };
 }
 

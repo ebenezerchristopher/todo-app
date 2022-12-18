@@ -1,8 +1,8 @@
 import React from "react";
 
-export default function Starred({ onClick, className, svg}) {
+export default function Starred({ onClick, className, svg }) {
   return (
-    <div onClick={onClick || (() => {}) } className={className || ""}>
+    <div onClick={onClick || (() => {})} className={className || ""}>
       <svg
         className={svg || ""}
         xmlns="http://www.w3.org/2000/svg"

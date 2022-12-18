@@ -1,17 +1,14 @@
-function createList(id, title,todos) {
-
-  let completedTodos = [];
+function createList(id, title, todos, completedTodos = [], starredTodos = []) {
   function sort() {}
-  function deleteCompleted() {
-    this.completedTodos = [];
-  }
+  function deleteCompleted() {}
   return {
     title,
     todos,
     completedTodos,
+    starredTodos, 
     sort,
-    deleteCompleted, 
-    id
+    deleteCompleted,
+    id,
   };
 }
 

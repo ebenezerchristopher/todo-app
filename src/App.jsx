@@ -12,7 +12,7 @@ let App = () => {
     newuser: true,
     currentUser: null,
     lists: [],
-    active: null
+    active: null, 
   });
 
   let observer = async (userObj) => {

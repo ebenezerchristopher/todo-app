@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import Starred from "./starred.jsx";
 import { UserContext } from "./usercontext.jsx";
 
-export default function Scrollheader({ lists, listmodal }) {
+export default function Scrollheader({ lists, listmodal, setstarredview, starredview }) {
   let context = useContext(UserContext);
   let active = context.user.active;
   let setContext = context.setUser;
@@ -11,7 +11,13 @@ export default function Scrollheader({ lists, listmodal }) {
     listmodal(true);
   }
 
+  function starredViewToggler(event) {
+    setstarredview(true);
+  }
+
   function clickHandler(event) {
+    setstarredview(false);
+
     let id = event.target.dataset.id;
     let activeList = context.user.lists.filter((e) => e.id === id)[0];
     setContext((prev) => {
@@ -24,12 +30,12 @@ export default function Scrollheader({ lists, listmodal }) {
   return (
     <div className="scrollheader">
       <div className="scroller">
-        <Starred svg="starred" />
+        <Starred onClick={starredViewToggler} className ={starredview ? "selected" : ""} svg="starred" />
         {lists.map((list) => {
           return (
             <div
               onClick={clickHandler}
-              className={active.id === list.id ? "selected" : ""}
+              className={(active.id === list.id) && (!starredview)  ? "selected" : ""}
               data-id={list.id}
               key={list.id}
             >
@@ -38,7 +44,9 @@ export default function Scrollheader({ lists, listmodal }) {
           );
         })}
       </div>
-      <div onClick={modalToggler} className="newlist">+ Newlist</div>
+      <div onClick={modalToggler} className="newlist">
+        + Newlist
+      </div>
     </div>
   );
 }
