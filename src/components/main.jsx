@@ -10,14 +10,16 @@ import CompletedTodos from "./completedview.jsx";
 import Newtodobutton from "./newtodobutton.jsx";
 import Newtodomodal from "./newtodomodal.jsx";
 import { createPortal } from "react-dom";
+import Deleteactions from "./deleteactionsmodal.jsx";
+import Deletemodalbutton from "./deletemodalbutton.jsx"
 
 export default function Main() {
-  console.log("main called");
   let node = document.getElementById("modal");
   let context = useContext(UserContext);
   let user = context.user.currentUser;
   let setContext = context.setUser;
 
+  let [deleteModal, setDeleteModal] = useState(false);
   let [newTodoState, setNewTodoState] = useState(false);
   let [starredView, setStarredView] = useState(false);
   let [modal, setModal] = useState(false);
@@ -48,6 +50,12 @@ export default function Main() {
       {starredView ? <Starredlist /> : <Todolist />}
       {!starredView ? <CompletedTodos /> : ""}
       <Newtodobutton onClick={setNewTodoState} />
+      <Deletemodalbutton onClick={setDeleteModal} />
+     {deleteModal ? createPortal(
+        <Deleteactions modalstate={deleteModal} onClick={setDeleteModal} />,
+        node
+      ) : null} 
+
       {createPortal(
         <Newtodomodal modalstate={newTodoState} onClick={setNewTodoState} />,
         node

@@ -1,14 +1,46 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Starred from "./starred.jsx";
 import Calendar from "./calendarsvg.jsx";
+import { UserContext } from "./usercontext.jsx";
+import { getLists, addToDo } from "../firebase/database.js";
+import { v4 as uuidv4 } from "uuid";
+import createTodo from "../functions/createtodo.js";
 
-export default function Newtodoinputs() {
+export default function Newtodoinputs({onClick}) {
+  let context = useContext(UserContext);
+  let user = context.user.currentUser;
+  let setContext = context.setUser;
+
   let [dateView, setDateView] = useState(false);
 
   function submitHandler(event) {
     event.preventDefault();
-    let value = event.target.checkbox.checked;
-    console.log(value);
+    let listId = context.user.active.id;
+    let todoId = uuidv4();
+    let completed = false;
+    let starred = event.target.checkbox.checked;
+    let title = event.target.title.value;
+    let details = event.target.details.value;
+    let date = event.target.date.value;
+
+    let todo = createTodo(title, details, date, starred, completed, todoId, listId);
+
+    addToDo(user, todo).then((resolve) => {
+      async function fetchData() {
+        let data = await getLists(user);
+        let id = todo.listid;
+        let activeList = data.filter((e) => e.id === id)[0];
+        setContext((prev) => {
+          return {
+            ...prev,
+            lists: data,
+            active: activeList,
+          };
+        });
+      }
+      fetchData();
+    });
+    onClick(false)
   }
 
   function calendarHandler(event) {
@@ -34,15 +66,15 @@ export default function Newtodoinputs() {
   }
 
   function dateHandler(event) {
-    let value = event.target.value
-    if (value ) {
-      setDateView(true)
-    let dateview = document.querySelector(".dateview>p")
-    
-    if (dateview) {
-      dateview.textContent = value
+    let value = event.target.value;
+    if (value) {
+      setDateView(true);
+      let dateview = document.querySelector(".dateview>p");
+
+      if (dateview) {
+        dateview.textContent = value;
+      }
     }
-    } 
   }
 
   function starHandler(event) {

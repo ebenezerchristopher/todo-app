@@ -3,7 +3,6 @@ import { UserContext } from "./usercontext.jsx";
 import Todoitem from "./todoitem.jsx";
 
 export default function TodoList() {
-  console.log("todolist called");
   let context = useContext(UserContext);
   let activeList = context.user.active;
   let todosList = activeList ? activeList.todos : null;

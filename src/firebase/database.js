@@ -12,6 +12,7 @@ import {
   updateDoc,
   doc,
   serverTimestamp,
+  deleteDoc,
 } from "firebase/firestore";
 
 import createList from "../functions/createlist.js";
@@ -175,12 +176,18 @@ async function getLists(user) {
   return lists;
 }
 
-async function deleteList(user, id) {
+async function deleteList(user, id, todos) {
   let db = getFirestore();
 
   let docRef = doc(db, `users/${user.uid}/lists/${id}`);
 
-  return docRef.delete();
+  if (todos.length) {
+    for (let todo of todos) {
+      deleteTodo(user, todo);
+    }
+  }
+
+ return deleteDoc(docRef);
 }
 
 async function deleteTodo(user, todo) {
@@ -191,7 +198,7 @@ async function deleteTodo(user, todo) {
     `users/${user.uid}/lists/${todo.listid}/todos/${todo.id}`
   );
 
-  return docRef.delete();
+  return deleteDoc(docRef);
 }
 
 async function updateTodos(user, todo, object) {
@@ -203,8 +210,6 @@ async function updateTodos(user, todo, object) {
 
   return await updateDoc(docRef, object);
 }
-
-
 
 export {
   addUser,

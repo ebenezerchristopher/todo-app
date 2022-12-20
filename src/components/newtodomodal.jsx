@@ -6,7 +6,7 @@ export default function Newtodomodal({ modalstate, onClick }) {
   }
   return modalstate ? (
     <div onClick={modalToggler} className="newtodomodal">
-    <Newtodoinputs />
+    <Newtodoinputs onClick={onClick } />
     </div>
   ) : null;
 }

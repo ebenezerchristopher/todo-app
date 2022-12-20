@@ -4,7 +4,6 @@ import { UserContext } from "./usercontext.jsx";
 import Todoitem from "./todoitem.jsx";
 
 export default function CompletedTodos() {
-  console.log("cpage called");
   let context = useContext(UserContext);
   let list = context.user.active;
   let completed = list ? list.completedTodos : [];

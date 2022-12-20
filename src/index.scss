@@ -277,7 +277,7 @@ svg.starred {
   padding-right: 5px;
   max-width: 100vw;
   .todoitem {
-    margin: 5px;
+    margin: 5px 5px 15px 5px;
   }
   .header {
     display: flex;
@@ -321,12 +321,19 @@ svg.starred {
   box-shadow: 0px 0px 3px 1px #4c4c4c;
   height: 40px;
   width: 40px;
+  z-index: 1000;
 }
 
 .newtodomodal {
-  background: rgba(42, 44, 45, 0.4);
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  background-color: rgba(42, 44, 45, 0.25);
   width: 100vw;
   height: 100vh;
+  z-index: 2000;
   .newtodoinputs {
     position: fixed;
     bottom: 0px;
@@ -443,4 +450,57 @@ svg.starred {
   margin-right: 50px;
   background: lightgrey;
   border-radius: 10px;
+}
+
+.deleteactionsmodal {
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  background: rgba(42, 44, 45, 0.25);
+  width: 100vw;
+  height: 100vh;
+  z-index: 2000;
+  .deleteactions {
+    position: fixed;
+    bottom: 0px;
+    height: 25vh;
+    width: 100%;
+    background: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    button {
+      background: none;
+      border: none;
+      padding: 10px;
+      font-weight: 400;
+      font-size: 110%;
+      text-align: left;
+    }
+  }
+}
+
+.deletemodalbutton {
+  position: fixed;
+  bottom: 22px;
+  right: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 130%;
+  font-weight: 800;
+  height: 35px;
+  width: 35px;
+  background: transparent;
+  z-index: 1000;
+ 
+  svg {
+    width: 100%;
+    height: 100%;
+  }
 }

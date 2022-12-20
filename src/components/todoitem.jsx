@@ -3,7 +3,6 @@ import Starred from "./starred.jsx";
 import { updateTodos, getLists } from "../firebase/database.js";
 
 export default function Todoitem({ todoitem, user, setContext }) {
-  console.log("todoitem called");
   let starred = todoitem.starred;
   let completed = todoitem.completed;
 
